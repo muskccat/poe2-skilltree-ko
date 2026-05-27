@@ -643,6 +643,35 @@ def patch_file(file_path: Path):
             node["stats"] = new_stats
             stat_changed += 1
 
+    # ── 특정 노드 맞춤 수동 보정 ──────────────────────────────────────────
+    # 1) 공허의 손아귀 기술 -> 공허의 손바닥 기술 교체
+    for key, node in nodes.items():
+        if key == "root":
+            continue
+        if "name" in node and node["name"] == "공허의 손아귀 기술":
+            node["name"] = "공허의 손바닥 기술"
+            name_changed += 1
+        if "stats" in node:
+            new_node_stats = []
+            stat_node_changed = False
+            for s in node["stats"]:
+                if "공허의 손아귀 기술" in s:
+                    new_node_stats.append(s.replace("공허의 손아귀 기술", "공허의 손바닥 기술"))
+                    stat_node_changed = True
+                else:
+                    new_node_stats.append(s)
+            if stat_node_changed:
+                node["stats"] = new_node_stats
+                stat_changed += 1
+
+    # 2) 64601 (공허의 손바닥 기술) 노드의 0.5.0 버전에 버그픽스 문구 추가
+    if file_path.name == "data-0.5.json" and "64601" in nodes:
+        hollow_node = nodes["64601"]
+        bugfix_text = '버그픽스: "공허의 손바닥 기술"이 대부분의 무도 무기 사용 가능 스킬에 보너스를 제공하지 않던 문제를 수정했습니다. 이제 "공허의 손바닥 기술"은 영향을 받는 공격에 대해 기본 비무장 피해에 피해를 추가하는 대신, 비무장 기본 피해를 대체합니다.'
+        if "stats" in hollow_node and bugfix_text not in hollow_node["stats"]:
+            hollow_node["stats"].append(bugfix_text)
+            stat_changed += 1
+
     print(f"  노드 이름 번역: {name_changed}개")
     print(f"  스탯 번역: {stat_changed}개")
 
