@@ -27,7 +27,7 @@ export const CLASS_NAME_KO: Record<string, string> = {
 // 어센던시 ID → 한국어 표시 이름
 export const ASC_ID_KO: Record<string, string> = {
   // Witch
-  Witch1:       "지옥술사",
+  Witch1:       "인퍼널리스트",
   Witch2:       "블러드 메이지",
   Witch3:       "리치",
   Witch3b:      "심연의 리치",
