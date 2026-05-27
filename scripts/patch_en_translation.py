@@ -92,8 +92,17 @@ NODE_NAME_KO: dict[str, str] = {
 
     # ── 유산/특수 노드 이름 (POE 세계관 인물명 등) ──
     # 이름은 그대로 유지하되, 괄호 안에 설명 추가 불필요 — 원문 유지
-    # (이미 게임 내 한국어 번역이 없거나 고유명사)
+    "Covering Ward":  "엄호하는 결계",
+    "The Cunning Fox": "교활한 여우",
+    "Reformed Barrier": "재형성된 방벽",
+    "The Quick Fox": "재빠른 여우",
+    "Convalescence": "요양",
+    "Quick Response": "빠른 반응",
+    "Lifelong Friend": "평생의 친구",
+    "Nurturing Guardian": "자양분을 주는 수호자",
+    "Evasion while Moving": "이동 중 회피",
 }
+
 
 # ── 스탯 문자열 번역 ────────────────────────────────────────────────────────
 # (cleanup 이후 영어 스탯 → 한국어)
@@ -493,10 +502,141 @@ STAT_EXACT_KO: dict[str, str] = {
     # Rune sockets
     "Can tattoo Runes onto your body, gaining\nadditional Rune-only sockets:\n• 1 Helmet socket\n• 2 Body Armour sockets\n• 1 Gloves socket\n• 1 Boots socket":
         "몸에 룬을 문신할 수 있으며, 다음 룬 전용 소켓 추가:\n• 투구 소켓 1개\n• 몸통 방어구 소켓 2개\n• 장갑 소켓 1개\n• 신발 소켓 1개",
+
+    # 0.5.0 Patch Notes Manual Stats
+    # Ancestral Bond
+    "Your Totem Limit is doubled\nNo cost or Charge requirement for placing Totems\nTotems reserve 75 Spirit each":
+        "토템 최대 수 2배로 증가\n토템 배치 시 비용을 소모하지 않고 충전 요구사항 없음\n토템이 각각 정신력 75 점유",
+
+    # Trusted Kinship
+    "You can have two Companions of different types\n30% more Reservation Efficiency of Companion Skills\n20% less Reservation Efficiency of non-Companion Skills":
+        "서로 다른 유형의 동반자 2마리 보유 가능\n동반자 스킬의 점유 효율 30% 증폭\n비동반자 스킬의 점유 효율 20% 감축",
+
+    # Vaal Pact
+    "50% more amount of Life Leeched\nLeech Life 67% less quickly\nCannot Recover Life other than from Leech\nLife Leech effects are not removed when Unreserved Life is Filled":
+        "생명력 흡수량 50% 증폭\n생명력 흡수 속도 67% 감축\n생명력 흡수 외에는 생명력 회복 불가\n점유되지 않은 생명력이 가득 차도 생명력 흡수 효과가 제거되지 않음",
+
+    # Patient Barrier (0.4.0)
+    "20% slower start of Energy Shield Recharge":
+        "에너지 보호막 충전 시작 속도 20% 감속",
+
+    # Covering Ward (0.4.0)
+    "25% increased Energy Shield Recharge Rate":
+        "에너지 보호막 충전 속도 25% 증가",
+    "Gain 20 Energy Shield when you Block":
+        "막기 시 에너지 보호막 20 획득",
+
+    # The Cunning Fox (0.4.0)
+    "+5% to Quality of all Skills":
+        "모든 스킬의 퀄리티 +5%",
+
+    # Reformed Barrier (0.4.0)
+    "Your Energy Shield Recharge starts when your Minions are Reformed":
+        "하수인이 재형성될 때 에너지 보호막 충전 시작",
+
+    # Coal Stoker
+    "Modifiers to Fire Resistance also grant Cold and Lightning Resistance at 50% of their value":
+        "화염 저항 보너스가 50%의 효과로 냉기 및 번개 저항에도 적용",
+
+    # Harmony Within
+    "15% less maximum Life":
+        "최대 생명력 15% 감폭",
+    "15% less maximum Mana":
+        "최대 마나 15% 감폭",
+
+    # Jade Heritage
+    "Gain a stack of Jade every second":
+        "초당 비취 중첩 1 획득",
+
+    # Voracious / Bloodthirsty / Fortifying Blood (Leech)
+    "15% increased Attack Speed while Leeching":
+        "흡수하는 동안 공격 속도 15% 증가",
+    "10% increased Attack Speed while Leeching":
+        "흡수하는 동안 공격 속도 10% 증가",
+    "40% increased Armour and Evasion Rating while Leeching":
+        "흡수하는 동안 방어도 및 회피 수치 40% 증가",
+    "8% increased Armour and Evasion Rating while Leeching":
+        "흡수하는 동안 방어도 및 회피 수치 8% 증가",
+    "30% increased Armour and Evasion Rating while Leeching":
+        "흡수하는 동안 방어도 및 회피 수치 30% 증가",
+
+    # Echoing Pulse
+    "Echoed Spells have 25% increased Area of Effect":
+        "메아리친 주문의 효과 범위 25% 증가",
+    "Final Repeat of Spells has 30% increased Area of Effect":
+        "주문의 마지막 반복 시 효과 범위 30% 증가",
+
+    # Effervescent
+    "4% increased Cast Speed for each different Spell you've Cast in the last eight seconds":
+        "최근 8초 동안 시전한 서로 다른 주문 하나당 시전 속도 4% 증가",
+
+    # Energising Archon
+    "20% faster start of Energy Shield Recharge while affected by an Archon Buff":
+        "집정관 버프의 영향을 받는 동안 에너지 보호막 충전 시작 20% 빠름",
+
+    # Quick Response
+    "20% faster start of Energy Shield Recharge when not on Full Life":
+        "생명력이 가득 차지 않았을 때 에너지 보호막 충전 시작 20% 빠름",
+    "30% faster start of Energy Shield Recharge when not on Full Life":
+        "생명력이 가득 차지 않았을 때 에너지 보호막 충전 시작 30% 빠름",
+
+    # Goring
+    "3% reduced maximum Life":
+        "최대 생명력 3% 감소",
+
+    # Nurturing Guardian & Lifelong Friend
+    "Life Recovery from your Flasks also applies to your Companions":
+        "플라스크로 얻는 생명력 회복이 동반자에게도 적용",
+    "Minions Revive 35% faster if all your Minions are Companions":
+        "모든 하수인이 동반자인 경우 하수인의 부활 속도 35% 가속",
+
+    # Shimmering / Shimmering Mirage
+    "10% reduced Duration of Ailments on You":
+        "플레이어에게 적용되는 상태 이상 지속시간 10% 감소",
+    "20% increased Evasion Rating if you haven't been Hit Recently":
+        "최근 피격된 적이 없는 경우 회피 수치 20% 증가",
+    "3% increased Movement Speed while you have Energy Shield":
+        "에너지 보호막이 있는 동안 이동 속도 3% 증가",
+
+    # Convalescence
+    "10% reduced Energy Shield Recharge Rate":
+        "에너지 보호막 충전 속도 10% 감소",
+    "15% reduced Energy Shield Recharge Rate":
+        "에너지 보호막 충전 속도 15% 감소",
+    "20% faster start of Energy Shield Recharge":
+        "에너지 보호막 충전 시작 20% 빠름",
+    "40% faster start of Energy Shield Recharge":
+        "에너지 보호막 충전 시작 40% 빠름",
+
+    # Banner Area
+    "Banner Skills have 12% increased Area of Effect":
+        "깃발 스킬의 효과 범위 12% 증가",
+    "Banner Skills have 15% increased Area of Effect":
+        "깃발 스킬의 효과 범위 15% 증가",
+    "Banner Skills have 16% increased Area of Effect":
+        "깃발 스킬의 효과 범위 16% 증가",
+    "Banner Skills have 20% increased Area of Effect":
+        "깃발 스킬의 효과 범위 20% 증가",
+    "Banner Skills have 30% increased Area of Effect":
+        "깃발 스킬의 효과 범위 30% 증가",
 }
 
 # 2) 숫자 포함 정규식 패턴 (더 구체적인 것 먼저)
 STAT_REGEX_KO: list[tuple[str, str]] = [
+    # Craving Slaughter (regex to capture maximum Rage and seconds)
+    (r'\+([+-]?\d+) maximum Rage if you\'ve used a Skill that Requires Glory in the past (\d+) seconds',
+     r'최근 \2초 이내에 영광을 요구하는 스킬을 사용한 경우 최대 격노 +\1'),
+
+    # Evasion while moving (regex to capture X% increased Evasion Rating while moving)
+    (r'(\d+)% increased Evasion Rating while moving',
+     r'이동 중 회피 수치 \1% 증가'),
+
+    # Leech Life slower/faster
+    (r'Leech Life (\d+)% slower',
+     r'생명력 흡수 속도 \1% 감속'),
+    (r'Leech Life (\d+)% faster',
+     r'생명력 흡수 속도 \1% 가속'),
+
     # Armour applies to X damage
     (r'\+(\d+)% of Armour also applies to Elemental Damage',
      r'방어도의 +\1%가 원소 피해 방어에도 적용됩니다'),
@@ -566,6 +706,16 @@ STAT_REGEX_KO: list[tuple[str, str]] = [
     # Block
     (r'(\d+)% increased Block chance',
      r'막기 확률 \1% 증가'),
+
+    # Reduced stats
+    (r'(\d+)% reduced Armour',
+     r'방어도 \1% 감소'),
+    (r'(\d+)% reduced maximum Energy Shield',
+     r'최대 에너지 보호막 \1% 감소'),
+    (r'(\d+)% reduced Energy Shield',
+     r'최대 에너지 보호막 \1% 감소'),
+    (r'(\d+)% reduced Defences',
+     r'방어 수치 \1% 감소'),
 ]
 
 
@@ -613,32 +763,50 @@ def patch_file(file_path: Path):
         if key == "root":
             continue
 
-        name = node.get("name", "")
-        # 영어인 경우만 처리 (한국어 이미 있으면 스킵)
-        has_ko = any(ord(c) >= 0xAC00 and ord(c) <= 0xD7A3 for c in name)
+        name_en = node.get("nameEn", node.get("name", ""))
+        new_name = translate_name(name_en)
+        if new_name != name_en and new_name != node.get("name", ""):
+            node["name"] = new_name
+            name_changed += 1
+        else:
+            name = node.get("name", "")
+            has_ko = any(ord(c) >= 0xAC00 and ord(c) <= 0xD7A3 for c in name)
+            if not has_ko and name.strip() and name != "WIP":
+                new_name = translate_name(name)
+                if new_name != name:
+                    node["name"] = new_name
+                    name_changed += 1
 
-        if not has_ko and name.strip() and name != "WIP":
-            new_name = translate_name(name)
-            if new_name != name:
-                node["name"] = new_name
-                name_changed += 1
-
-        # 스탯 번역 (한국어가 없는 스탯만)
+        # 스탯 번역 (영어 원본 statsEn 기준으로 수동 번역 대입)
+        stats_en = node.get("statsEn", [])
         old_stats = node.get("stats", [])
         new_stats = []
         changed = False
-        for s in old_stats:
-            has_ko_stat = any(ord(c) >= 0xAC00 and ord(c) <= 0xD7A3 for c in s)
+
+        for i, s_ko in enumerate(old_stats):
+            # i번째 영어 원문이 존재하면 수동 사전 검사 우선 적용
+            if i < len(stats_en):
+                s_en = clean_markup(stats_en[i])
+                translated = translate_stat(s_en)
+                if translated != s_en:
+                    # 수동 사전에 번역이 정의되어 있다면 강제 대입
+                    new_stats.append(translated)
+                    changed = True
+                    continue
+            
+            # 수동 번역이 없으면 기존 번역 유지하되, 만약 한글이 없는 영어라면 추가 번역 시도
+            has_ko_stat = any(ord(c) >= 0xAC00 and ord(c) <= 0xD7A3 for c in s_ko)
             if not has_ko_stat:
-                cleaned = clean_markup(s)
+                cleaned = clean_markup(s_ko)
                 translated = translate_stat(cleaned)
                 if translated != cleaned:
                     new_stats.append(translated)
                     changed = True
                 else:
-                    new_stats.append(s)  # 번역 없으면 마크업 포함 원문 유지
+                    new_stats.append(s_ko)
             else:
-                new_stats.append(s)
+                new_stats.append(s_ko)
+
         if changed:
             node["stats"] = new_stats
             stat_changed += 1
