@@ -10,17 +10,17 @@ export function cleanStat(s: string): string {
 
 // 클래스 이름 한국어
 export const CLASS_NAME_KO: Record<string, string> = {
-  Witch:      "마녀",
+  Witch:      "위치",
   Ranger:     "레인저",
-  Warrior:    "전사",
+  Warrior:    "워리어",
   Sorceress:  "소서리스",
   Huntress:   "헌트리스",
-  Mercenary:  "용병",
-  Monk:       "수도사",
+  Mercenary:  "머서너리",
+  Monk:       "몽크",
   Druid:      "드루이드",
-  Marauder:   "마로더",
+  Marauder:   "머라우더",
   Duelist:    "듀얼리스트",
-  Shadow:     "그림자",
+  Shadow:     "섀도우",
   Templar:    "템플러",
 };
 
@@ -37,25 +37,25 @@ export const ASC_ID_KO: Record<string, string> = {
   // Warrior
   Warrior1:     "타이탄",
   Warrior2:     "워브링어",
-  Warrior3:     "키타바의 대장장이",
+  Warrior3:     "스미스 오브 키타바",
   // Sorceress
-  Sorceress1:   "폭풍술사",
-  Sorceress2:   "연대기술사",
-  Sorceress3:   "바라슈타의 제자",
+  Sorceress1:   "스톰위버",
+  Sorceress2:   "크로노맨서",
+  Sorceress3:   "디사이플 오브 바라시타",
   // Huntress (0.5 신규)
   Huntress1:    "아마존",
-  Huntress2:    "정령사",
-  Huntress3:    "의식술사",
+  Huntress2:    "스피릿 워커",
+  Huntress3:    "리추얼리스트",
   // Mercenary
-  Mercenary1:   "전술가",
-  Mercenary2:   "마녀사냥꾼",
-  Mercenary3:   "젬링 군단병",
+  Mercenary1:   "택티션",
+  Mercenary2:   "위치헌터",
+  Mercenary3:   "젬링 리저네어",
   // Monk
-  Monk1:        "무술가",
+  Monk1:        "마샬 아티스트",
   Monk2:        "인보커",
-  Monk3:        "차율라의 성직자",
+  Monk3:        "애컬라이트 오브 차율라",
   // Druid
-  Druid1:       "신탁자",
+  Druid1:       "오라클",
   Druid2:       "샤먼",
   // 미출시 자리 (ID만 존재)
   Ranger2:      "레인저2",

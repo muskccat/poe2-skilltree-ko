@@ -122,6 +122,8 @@ export async function loadTree(version: string, onProgress?: ProgressFn): Promis
       grantedPassivePoints: n.grantedPassivePoints,
       mcOption: !!n.isMultipleChoiceOption,
       mcParent: n.multipleChoiceParent != null ? String(n.multipleChoiceParent) : undefined,
+      nameEn: n.nameEn ?? n.name ?? "",
+      statsEn: n.statsEn ?? n.stats ?? [],
     };
     nodes.set(key, tn);
     nodeList.push(tn);
@@ -244,7 +246,15 @@ export async function loadTree(version: string, onProgress?: ProgressFn): Promis
       const pick: SkillOverride | undefined = Array.isArray(ov)
         ? ov.find((e) => (e.id ?? "").toLowerCase().startsWith(c.name.toLowerCase())) ?? ov[0]
         : ov;
-      if (pick) m.set(String(nodeId), { name: pick.name, stats: pick.stats ?? [], icon: pick.icon });
+      if (pick) {
+        m.set(String(nodeId), {
+          name: pick.name,
+          stats: pick.stats ?? [],
+          icon: pick.icon,
+          nameEn: pick.nameEn ?? pick.name,
+          statsEn: pick.statsEn ?? pick.stats ?? [],
+        });
+      }
     }
     if (m.size) classOverrides.set(i, m);
   });

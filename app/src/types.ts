@@ -28,6 +28,8 @@ export interface RawNode {
   grantedDexterity?: number;
   grantedIntelligence?: number;
   grantedPassivePoints?: number;
+  nameEn?: string;
+  statsEn?: string[];
 }
 
 export interface RawGroup {
@@ -58,6 +60,8 @@ export interface SkillOverride {
   name: string;
   icon?: string;
   stats?: string[];
+  nameEn?: string;
+  statsEn?: string[];
 }
 
 export interface ClassInfo {
@@ -77,6 +81,8 @@ export interface NodeOverride {
   name: string;
   stats: string[];
   icon?: string;
+  nameEn?: string;
+  statsEn?: string[];
 }
 
 export interface RawData {
@@ -121,6 +127,8 @@ export interface TreeNode {
   // ascendancy "pick one" sub-node: free (no point cost), mutually exclusive
   mcOption?: boolean;
   mcParent?: string;
+  nameEn: string;
+  statsEn: string[];
 }
 
 export interface TreeEdge {

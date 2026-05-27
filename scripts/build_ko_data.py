@@ -180,6 +180,13 @@ def main():
     for key, node in nodes.items():
         if key == "root":
             continue
+        
+        # Save original English name and stats before translation
+        if "name" in node:
+            node["nameEn"] = node["name"]
+        if "stats" in node:
+            node["statsEn"] = node["stats"]
+
         ko_node = ko_by_graphid.get(key)
         if not ko_node:
             cnt_none += 1

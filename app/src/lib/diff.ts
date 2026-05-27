@@ -37,8 +37,8 @@ export function computeDiff(prev: ParsedTree, next: ParsedTree): VersionDiff {
     if (dx * dx + dy * dy > MOVE_MIN * MOVE_MIN) {
       moved.push({ key, name: n.name || o.name, fromX: o.x, fromY: o.y, toX: n.x, toY: n.y });
     }
-    const statsChanged = !sameStats(o.stats, n.stats);
-    const nameChanged = o.name !== n.name && isReal(o.name) && isReal(n.name);
+    const statsChanged = !sameStats(o.statsEn ?? o.stats, n.statsEn ?? n.stats);
+    const nameChanged = (o.nameEn ?? o.name) !== (n.nameEn ?? n.name) && isReal(o.name) && isReal(n.name);
 
     if (statsChanged && (isReal(o.name) || isReal(n.name)) && (o.stats.length || n.stats.length)) {
       byKey.set(key, {
@@ -87,8 +87,12 @@ export function computeDiff(prev: ParsedTree, next: ParsedTree): VersionDiff {
       const nName = no?.name ?? "";
       const oStats = po?.stats ?? [];
       const nStats = no?.stats ?? [];
-      const statsChanged = !sameStats(oStats, nStats);
-      if (!statsChanged && oName === nName) continue;
+      const oNameEn = po?.nameEn ?? oName;
+      const nNameEn = no?.nameEn ?? nName;
+      const oStatsEn = po?.statsEn ?? oStats;
+      const nStatsEn = no?.statsEn ?? nStats;
+      const statsChanged = !sameStats(oStatsEn, nStatsEn);
+      if (!statsChanged && oNameEn === nNameEn) continue;
       if (statsChanged) {
         byKey.set(key, { status: "stats", oldName: oName, newName: nName, oldStats: oStats, newStats: nStats });
         counts.stats++;

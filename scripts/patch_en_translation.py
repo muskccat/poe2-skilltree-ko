@@ -429,7 +429,7 @@ STAT_EXACT_KO: dict[str, str] = {
     "Can Allocate Passive Skills from the Sorceress's starting point":
         "소서리스 시작 지점에서 패시브 스킬 배분 가능",
     "Can Allocate Passive Skills from the Warrior's starting point":
-        "전사 시작 지점에서 패시브 스킬 배분 가능",
+        "워리어 시작 지점에서 패시브 스킬 배분 가능",
 
     # Pathfinder / Poison
     "25% chance for Attacks to Maim on Hit against Poisoned Enemies":
