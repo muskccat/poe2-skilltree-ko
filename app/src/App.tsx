@@ -31,7 +31,7 @@ import { isPobExport } from "./lib/pobDecode";
 import PobImportModal from "./components/PobImportModal";
 
 type Version = "0.5" | "0.4";
-const WIZARD_STEPS = ["Details", "Passives", "Skills", "Inventory"];
+const WIZARD_STEPS = ["빌드 정보", "패시브", "스킬", "인벤토리"];
 
 export default function App() {
   const cameraRef = useRef(new Camera());
@@ -306,7 +306,7 @@ export default function App() {
           applyParsedBuild(parsed, t);
         }
       } catch (e) {
-        alert("Could not read that file: " + (e as Error).message);
+        alert("파일을 읽을 수 없습니다: " + (e as Error).message);
       }
     },
     [version, applyParsedBuild]
@@ -315,7 +315,7 @@ export default function App() {
   const onPobString = useCallback(
     async (s: string) => {
       const t = trees.current?.[version];
-      if (!t) throw new Error("Tree not loaded yet");
+      if (!t) throw new Error("트리가 아직 로드되지 않았습니다");
       const result = await importPobString(s, t);
       applyParsedBuild(result, t);
       setPobModalOpen(false);
@@ -417,9 +417,9 @@ export default function App() {
       <div className="app">
         <div className="loader">
           <div className="loader__ring" />
-          <div className="loader__brand">Passive Skill Tree</div>
+          <div className="loader__brand">패시브 스킬 트리</div>
           <div className="loader__label">
-            {progress >= 1 ? "Awakening the tree…" : "Drawing the passive tree"}
+            {progress >= 1 ? "트리를 깨우는 중…" : "패시브 트리 불러오는 중"}
           </div>
           <div className="loader__bar">
             <div className="loader__fill" style={{ width: `${Math.round(progress * 100)}%` }} />
@@ -571,14 +571,14 @@ export default function App() {
           <button
             className="edge-toggle left"
             onClick={() => setShowLeft((v) => !v)}
-            aria-label="Toggle search and class panels"
+            aria-label="검색·클래스 패널 열기/닫기"
           >
             {showLeft ? "‹" : "›"}
           </button>
           <button
             className="edge-toggle right"
             onClick={() => setShowRight((v) => !v)}
-            aria-label="Toggle version panel"
+            aria-label="버전 패널 열기/닫기"
           >
             {showRight ? "›" : "‹"}
           </button>

@@ -11,7 +11,7 @@ interface Props {
 function PlannerWizard({ steps, step, setStep, onExport, onExit }: Props) {
   return (
     <div className="panel wizard">
-      <button className="wizard__exit" onClick={onExit} title="Exit planner">
+      <button className="wizard__exit" onClick={onExit} title="플래너 종료">
         ✕
       </button>
 
@@ -30,22 +30,22 @@ function PlannerWizard({ steps, step, setStep, onExport, onExit }: Props) {
 
       <div className="wizard__nav">
         <button className="wizard__btn" disabled={step === 0} onClick={() => setStep(step - 1)}>
-          Back
+          이전
         </button>
         {step < steps.length - 1 ? (
           <button className="wizard__btn primary" onClick={() => setStep(step + 1)}>
-            Next
+            다음
           </button>
         ) : (
           <button className="wizard__btn primary" onClick={onExport}>
-            Export .build
+            .build 내보내기
           </button>
         )}
       </div>
 
       <div className="wizard__io">
         <button className="wizard__btn ghost" onClick={onExport}>
-          Export
+          내보내기
         </button>
       </div>
     </div>

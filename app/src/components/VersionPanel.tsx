@@ -20,7 +20,7 @@ function VersionPanel({ version, setVersion, diffOn, setDiffOn, diff }: Props) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.15 }}
     >
-      <div className="panel__title">Tree Version</div>
+      <div className="panel__title">트리 버전</div>
       <div className="seg">
         <button className={version === "0.4" ? "active" : ""} onClick={() => setVersion("0.4")}>
           0.4.0
@@ -32,8 +32,8 @@ function VersionPanel({ version, setVersion, diffOn, setDiffOn, diff }: Props) {
 
       <div className="toggle" onClick={() => setDiffOn(!diffOn)}>
         <div>
-          <div className="toggle__label">Highlight 0.5 changes</div>
-          <div className="toggle__hint">Overlay what changed since 0.4</div>
+          <div className="toggle__label">0.5 변경사항 하이라이트</div>
+          <div className="toggle__hint">0.4 대비 변경된 노드 표시</div>
         </div>
         <div className={"switch" + (diffOn ? " on" : "")} />
       </div>
@@ -42,27 +42,27 @@ function VersionPanel({ version, setVersion, diffOn, setDiffOn, diff }: Props) {
         <motion.div className="legend" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <div className="legend__row">
             <span className="legend__swatch" style={{ background: DIFF_COLORS.added, color: DIFF_COLORS.added }} />
-            New passive / notable
+            신규 패시브 / 노터블
             <span className="legend__count">{c.added}</span>
           </div>
           <div className="legend__row">
             <span className="legend__swatch" style={{ background: DIFF_COLORS.stats, color: DIFF_COLORS.stats }} />
-            Reworked stats
+            스탯 변경
             <span className="legend__count">{c.stats}</span>
           </div>
           <div className="legend__row">
             <span className="legend__swatch" style={{ background: DIFF_COLORS.renamed, color: DIFF_COLORS.renamed }} />
-            Renamed
+            이름 변경
             <span className="legend__count">{c.renamed}</span>
           </div>
           <div className="legend__row">
             <span className="legend__swatch" style={{ background: DIFF_COLORS.removed, color: DIFF_COLORS.removed }} />
-            Removed (ghosted)
+            삭제 (잔상)
             <span className="legend__count">{c.removed}</span>
           </div>
           <div className="legend__row">
             <span className="legend__swatch" style={{ background: DIFF_COLORS.moved, color: DIFF_COLORS.moved }} />
-            Moved
+            위치 이동
             <span className="legend__count">{c.moved}</span>
           </div>
         </motion.div>

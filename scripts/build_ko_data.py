@@ -81,11 +81,17 @@ def clean_markup(text: str) -> str:
 
 
 def apply_template(template: str, values: list) -> str:
-    """CSD 템플릿 {0:+d}, {0} 등에 값 대입 후 마크업 정리."""
+    """CSD 템플릿 {0:+d}, {0:.1f}, {0} 등에 값 대입 후 마크업 정리."""
     result = template
     for i, v in enumerate(values):
         result = result.replace(f"{{{i}:+d}}", f"+{v}" if v >= 0 else str(v))
         result = result.replace(f"{{{i}}}", str(v))
+    # 나머지 포맷 지정자({i:...}) 처리 — 예: {0:.1f}
+    result = re.sub(
+        r"\{(\d+):[^}]*\}",
+        lambda m: str(values[int(m.group(1))]) if int(m.group(1)) < len(values) else "",
+        result,
+    )
     return clean_markup(result)
 
 
@@ -112,8 +118,7 @@ def build_ko_stats(ko_node: dict, stat_by_rid: dict, ko_templates: dict):
         template = ko_templates.get(stat_id, "")
         if not template:
             return None  # 이 노드는 영어 fallback
-        val = values[i] if i < len(values) else 0
-        result.append(apply_template(template, [val]))
+        result.append(apply_template(template, values))
 
     return result if result else None
 

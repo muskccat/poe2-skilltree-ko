@@ -25,7 +25,7 @@ function SkillsStep({ skills, setSkills }: Props) {
 
   return (
     <div className="panel step step--skills">
-      <div className="step__title">Skills</div>
+      <div className="step__title">스킬</div>
       <datalist id="poedb-skills">
         {db.skillGems.map((g) => (
           <option key={g} value={g} />
@@ -44,14 +44,14 @@ function SkillsStep({ skills, setSkills }: Props) {
               <input
                 className="skill-card__gem"
                 list="poedb-skills"
-                placeholder="skill gem…"
+                placeholder="스킬 젬…"
                 value={s.id}
                 onChange={(e) => patch(i, (x) => ({ ...x, id: e.target.value }))}
               />
               <input
                 className="lvl-field"
-                placeholder="lvl"
-                title="Start level (optional)"
+                placeholder="레벨"
+                title="시작 레벨 (선택사항)"
                 value={levelParts(s.level_interval)[0]}
                 onChange={(e) =>
                   patch(i, (x) => ({ ...x, level_interval: makeLevel(e.target.value, levelParts(x.level_interval)[1]) }))
@@ -59,14 +59,14 @@ function SkillsStep({ skills, setSkills }: Props) {
               />
               <input
                 className="lvl-field"
-                placeholder="to"
-                title="End level (optional)"
+                placeholder="~"
+                title="종료 레벨 (선택사항)"
                 value={levelParts(s.level_interval)[1]}
                 onChange={(e) =>
                   patch(i, (x) => ({ ...x, level_interval: makeLevel(levelParts(x.level_interval)[0], e.target.value) }))
                 }
               />
-              <button className="skill-card__rm" onClick={() => removeSkill(i)} title="Remove skill">
+              <button className="skill-card__rm" onClick={() => removeSkill(i)} title="스킬 제거">
                 ✕
               </button>
             </div>
@@ -75,14 +75,14 @@ function SkillsStep({ skills, setSkills }: Props) {
                 <div className="skill-support" key={j}>
                   <input
                     list="poedb-supports"
-                    placeholder="support gem…"
+                    placeholder="서포트 젬…"
                     value={sup.id}
                     onChange={(e) => setSupport(i, j, (x) => ({ ...x, id: e.target.value }))}
                   />
                   <input
                     className="lvl-field"
-                    placeholder="lvl"
-                    title="Start level (optional)"
+                    placeholder="레벨"
+                    title="시작 레벨 (선택사항)"
                     value={levelParts(sup.level_interval)[0]}
                     onChange={(e) =>
                       setSupport(i, j, (x) => ({ ...x, level_interval: makeLevel(e.target.value, levelParts(x.level_interval)[1]) }))
@@ -90,32 +90,32 @@ function SkillsStep({ skills, setSkills }: Props) {
                   />
                   <input
                     className="lvl-field"
-                    placeholder="to"
-                    title="End level (optional)"
+                    placeholder="~"
+                    title="종료 레벨 (선택사항)"
                     value={levelParts(sup.level_interval)[1]}
                     onChange={(e) =>
                       setSupport(i, j, (x) => ({ ...x, level_interval: makeLevel(levelParts(x.level_interval)[0], e.target.value) }))
                     }
                   />
-                  <button onClick={() => removeSupport(i, j)} title="Remove support">
+                  <button onClick={() => removeSupport(i, j)} title="서포트 제거">
                     –
                   </button>
                   <MarkupEditor
                     value={sup.additional_text ?? ""}
                     onChange={(v) => setSupport(i, j, (x) => ({ ...x, additional_text: v }))}
-                    placeholder="support note (optional)"
+                    placeholder="서포트 메모 (선택사항)"
                     rows={1}
                   />
                 </div>
               ))}
               <button className="skill-support__add" onClick={() => addSupport(i)}>
-                + support
+                + 서포트
               </button>
             </div>
             <MarkupEditor
               value={s.additional_text ?? ""}
               onChange={(v) => patch(i, (x) => ({ ...x, additional_text: v }))}
-              placeholder="skill note (additional text) — right-click to format"
+              placeholder="스킬 메모 — 우클릭으로 서식 지정"
               rows={1}
             />
           </div>
@@ -123,10 +123,10 @@ function SkillsStep({ skills, setSkills }: Props) {
       </div>
 
       <button className="step__add" onClick={addSkill}>
-        + Add skill
+        + 스킬 추가
       </button>
       {db.skillGems.length === 0 && (
-        <p className="step__hint">Gem autocomplete unavailable — type names freely.</p>
+        <p className="step__hint">젬 자동완성을 사용할 수 없습니다 — 직접 입력하세요.</p>
       )}
     </div>
   );

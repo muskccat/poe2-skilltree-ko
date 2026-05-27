@@ -10,11 +10,11 @@ interface Props {
 }
 
 const FONTS: { tag: string; label: string; style: React.CSSProperties }[] = [
-  { tag: "b", label: "Bold", style: { fontWeight: 700 } },
-  { tag: "i", label: "Italic", style: { fontStyle: "italic" } },
-  { tag: "u", label: "Underline", style: { textDecoration: "underline" } },
-  { tag: "s", label: "Small", style: { fontSize: "0.85em" } },
-  { tag: "l", label: "Large", style: { fontSize: "1.1em" } },
+  { tag: "b", label: "굵게", style: { fontWeight: 700 } },
+  { tag: "i", label: "기울임", style: { fontStyle: "italic" } },
+  { tag: "u", label: "밑줄", style: { textDecoration: "underline" } },
+  { tag: "s", label: "작게", style: { fontSize: "0.85em" } },
+  { tag: "l", label: "크게", style: { fontSize: "1.1em" } },
 ];
 
 const SWATCHES: [string, string][] = [
@@ -58,7 +58,7 @@ function MarkupEditor({ value, onChange, placeholder, rows = 2 }: Props) {
         className="note-item__input"
         rows={rows}
         value={value}
-        placeholder={placeholder ?? "type a note — select text and right-click to style it"}
+        placeholder={placeholder ?? "메모를 입력하세요 — 텍스트 선택 후 우클릭으로 서식 지정"}
         onChange={(e) => onChange(e.target.value)}
         onContextMenu={openMenu}
       />
@@ -85,7 +85,7 @@ function MarkupEditor({ value, onChange, placeholder, rows = 2 }: Props) {
                 top: Math.min(menu.y, window.innerHeight - 200),
               }}
             >
-              <div className="note-menu__label">Font</div>
+              <div className="note-menu__label">서체</div>
               <div className="note-menu__fonts">
                 {FONTS.map((f) => (
                   <button key={f.tag} style={f.style} onClick={() => apply(f.tag)}>
@@ -93,7 +93,7 @@ function MarkupEditor({ value, onChange, placeholder, rows = 2 }: Props) {
                   </button>
                 ))}
               </div>
-              <div className="note-menu__label">Colour</div>
+              <div className="note-menu__label">색상</div>
               <div className="note-menu__swatches">
                 {SWATCHES.map(([name, hex]) => (
                   <button

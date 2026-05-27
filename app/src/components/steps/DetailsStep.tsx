@@ -33,30 +33,30 @@ function DetailsStep({
 
   return (
     <div className="panel step step--details">
-      <div className="step__title">Build Details</div>
+      <div className="step__title">빌드 정보</div>
 
       <div className="field-row">
         <label className="field">
-          <span className="field__label">Name</span>
-          <input value={name} onChange={(e) => setField("name", e.target.value)} placeholder="My Build" autoFocus />
+          <span className="field__label">이름</span>
+          <input value={name} onChange={(e) => setField("name", e.target.value)} placeholder="내 빌드" autoFocus />
         </label>
         <label className="field">
-          <span className="field__label">Author</span>
-          <input value={author} onChange={(e) => setField("author", e.target.value)} placeholder="optional" />
+          <span className="field__label">작성자</span>
+          <input value={author} onChange={(e) => setField("author", e.target.value)} placeholder="선택사항" />
         </label>
       </div>
       <label className="field">
-        <span className="field__label">Description</span>
+        <span className="field__label">설명</span>
         <textarea
           value={description}
           rows={2}
           onChange={(e) => setField("description", e.target.value)}
-          placeholder="optional"
+          placeholder="선택사항"
         />
       </label>
 
       <div className="field__label" style={{ marginTop: 4 }}>
-        Class
+        클래스
       </div>
       <div className="class-grid">
         {classes.map((c, i) =>
@@ -83,7 +83,7 @@ function DetailsStep({
               onClick={() => onSelectAsc(selectedAsc === a.id ? null : a.id)}
             >
               <span className="asc-chip__name">{a.name}</span>
-              <span className="asc-chip__tag">{newAscIds.has(a.id) ? "NEW IN 0.5" : a.id}</span>
+              <span className="asc-chip__tag">{newAscIds.has(a.id) ? "0.5 신규" : a.id}</span>
             </div>
           ))}
         </div>

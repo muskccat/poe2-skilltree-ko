@@ -91,19 +91,19 @@ export default function PobImportModal({ open, onClose, onPobString, onFile }: P
             transition={{ duration: 0.2 }}
             role="dialog"
             aria-modal="true"
-            aria-label="Import Build"
+            aria-label="빌드 가져오기"
           >
             <div className="pob-modal__header">
-              <span className="pob-modal__title">Import Build</span>
-              <button className="pob-modal__close" onClick={handleClose} disabled={loading} aria-label="Close">
+              <span className="pob-modal__title">빌드 가져오기</span>
+              <button className="pob-modal__close" onClick={handleClose} disabled={loading} aria-label="닫기">
                 ✕
               </button>
             </div>
 
-            <div className="pob-modal__section-label">Path of Building export string</div>
+            <div className="pob-modal__section-label">Path of Building 내보내기 문자열</div>
             <textarea
               className="pob-modal__textarea"
-              placeholder={"Paste a PoB export string here…\n(starts with eN…)"}
+              placeholder={"PoB 내보내기 문자열을 붙여넣으세요…\n(eN…으로 시작)"}
               value={value}
               onChange={(e) => {
                 setValue(e.target.value);
@@ -132,17 +132,17 @@ export default function PobImportModal({ open, onClose, onPobString, onFile }: P
                 onClick={handleDecode}
                 disabled={!isPob || loading}
               >
-                {loading ? "Decoding…" : "Import PoB"}
+                {loading ? "불러오는 중…" : "PoB 가져오기"}
               </button>
 
-              <span className="pob-modal__divider">or</span>
+              <span className="pob-modal__divider">또는</span>
 
               <button
                 className="ca-btn"
                 onClick={() => fileRef.current?.click()}
                 disabled={loading}
               >
-                Open .build file
+                .build 파일 열기
               </button>
             </div>
 
@@ -155,8 +155,8 @@ export default function PobImportModal({ open, onClose, onPobString, onFile }: P
             />
 
             <div className="pob-modal__hint">
-              PoB export strings start with <code>eN</code> and can be copied from{" "}
-              <em>Path of Building → Export</em>.
+              PoB 내보내기 문자열은 <code>eN</code>으로 시작하며,{" "}
+              <em>Path of Building → Export</em>에서 복사할 수 있습니다.
             </div>
           </motion.div>
           </div>

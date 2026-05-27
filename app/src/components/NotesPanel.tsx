@@ -21,21 +21,21 @@ function NotesPanel({ nodes, notes, setNote }: Props) {
 
   return (
     <div className="panel notes-panel">
-      <div className="panel__title">Passive Notes</div>
+      <div className="panel__title">패시브 메모</div>
       <div className="notes-tabs">
         <button className={tab === "asc" ? "active" : ""} onClick={() => setTab("asc")}>
-          Ascendancy <span className="notes-tabs__n">{asc.length}</span>
+          어센던시 <span className="notes-tabs__n">{asc.length}</span>
         </button>
         <button className={tab === "main" ? "active" : ""} onClick={() => setTab("main")}>
-          Passives <span className="notes-tabs__n">{main.length}</span>
+          패시브 <span className="notes-tabs__n">{main.length}</span>
         </button>
       </div>
 
       {shown.length === 0 ? (
         <p className="step__hint">
           {tab === "asc"
-            ? "Allocate ascendancy notables to annotate them."
-            : "Allocate notables or keystones to annotate them."}
+            ? "어센던시 노터블을 배분하면 메모를 추가할 수 있습니다."
+            : "노터블 또는 키스톤을 배분하면 메모를 추가할 수 있습니다."}
         </p>
       ) : (
         <div className="notes-list">
