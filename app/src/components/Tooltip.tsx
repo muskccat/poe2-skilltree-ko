@@ -1,5 +1,5 @@
 import type { TreeNode, DiffEntry, NodeOverride } from "../types";
-import { cleanStat, KIND_LABEL } from "../lib/text";
+import { cleanStat, KIND_LABEL, ASC_ID_KO } from "../lib/text";
 import { DIFF_COLORS } from "../lib/diff";
 import MarkupText from "./MarkupText";
 
@@ -37,7 +37,7 @@ export default function Tooltip({ node, x, y, diff, diffOn, override, className,
       <div className="tooltip__name">{name}</div>
       <div className="tooltip__kind">
         {KIND_LABEL[node.kind]}
-        {override ? ` · ${className} 전용` : node.ascendancyId ? ` · ${node.ascendancyId}` : ""}
+        {override ? ` · ${className} 전용` : node.ascendancyId ? ` · ${ASC_ID_KO[node.ascendancyId] ?? node.ascendancyId}` : ""}
       </div>
       {stats.map((s, i) =>
         cleanStat(s)

@@ -1,5 +1,6 @@
 import { memo } from "react";
 import type { ClassInfo } from "../../types";
+import { CLASS_NAME_KO, ASC_ID_KO } from "../../lib/text";
 
 interface Props {
   name: string;
@@ -66,7 +67,7 @@ function DetailsStep({
               className={"class-chip" + (selectedClass === i ? " active" : "")}
               onClick={() => onSelectClass(selectedClass === i ? null : i)}
             >
-              {c.name}
+              {CLASS_NAME_KO[c.name] ?? c.name}
             </button>
           ) : null
         )}
@@ -82,7 +83,7 @@ function DetailsStep({
               }
               onClick={() => onSelectAsc(selectedAsc === a.id ? null : a.id)}
             >
-              <span className="asc-chip__name">{a.name}</span>
+              <span className="asc-chip__name">{ASC_ID_KO[a.id] ?? a.name}</span>
               <span className="asc-chip__tag">{newAscIds.has(a.id) ? "0.5 신규" : a.id}</span>
             </div>
           ))}

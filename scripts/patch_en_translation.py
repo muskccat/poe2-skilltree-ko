@@ -300,19 +300,188 @@ STAT_EXACT_KO: dict[str, str] = {
     "Unique Tamed Beasts have 30% increased movement speed":
         "유니크 길들인 야수 이동 속도 30% 증가",
 
-    # Grants Skill
-    "Grants Skill: <underline>{Hollow Focus}":
-        "스킬 부여: 공허의 집중",
-    "Grants Skill: <underline>{Hollow Form}":
-        "스킬 부여: 공허의 형체",
-    "Grants Skill: <underline>{Hollow Resonance}":
-        "스킬 부여: 공허의 공명",
-    "Grants Skill: <underline>{Primal Bounty}":
-        "스킬 부여: 원시의 선물",
-    "Grants Skill: <underline>{Vivid Stampede}":
-        "스킬 부여: 생동의 질주",
-    "Grants Skill: <underline>{Wild Protector}":
-        "스킬 부여: 야생의 수호자",
+    # Grants Skill (마크업 제거 후 버전)
+    "Grants Skill: Hollow Focus":       "스킬 부여: 공허의 집중",
+    "Grants Skill: Hollow Form":        "스킬 부여: 공허의 형체",
+    "Grants Skill: Hollow Resonance":   "스킬 부여: 공허의 공명",
+    "Grants Skill: Primal Bounty":      "스킬 부여: 원시의 선물",
+    "Grants Skill: Vivid Stampede":     "스킬 부여: 생동의 질주",
+    "Grants Skill: Wild Protector":     "스킬 부여: 야생의 수호자",
+    # Grants Skill (마크업 포함 원문도 처리)
+    "Grants Skill: <underline>{Hollow Focus}":     "스킬 부여: 공허의 집중",
+    "Grants Skill: <underline>{Hollow Form}":      "스킬 부여: 공허의 형체",
+    "Grants Skill: <underline>{Hollow Resonance}": "스킬 부여: 공허의 공명",
+    "Grants Skill: <underline>{Primal Bounty}":    "스킬 부여: 원시의 선물",
+    "Grants Skill: <underline>{Vivid Stampede}":   "스킬 부여: 생동의 질주",
+    "Grants Skill: <underline>{Wild Protector}":   "스킬 부여: 야생의 수호자",
+
+    # Blood Mage (Witch2)
+    "Skills gain a Base Life Cost equal to Base Mana Cost":
+        "스킬이 기본 마나 소모량과 같은 기본 생명력 소모를 획득",
+    "Grants Skill: Life Remnants":      "스킬 부여: 생명의 잔재",
+    "Grants Skill: Demon Form":         "스킬 부여: 악마의 형체",
+
+    # Chronomancer (Sorceress2)
+    "Grants Skill: Temporal Rift":      "스킬 부여: 시간 균열",
+    "Grants Skill: Time Freeze":        "스킬 부여: 시간 동결",
+    "Grants Skill: Time Snap":          "스킬 부여: 시간 강타",
+    "Grants Skill: Align Fate":         "스킬 부여: 운명 일치",
+    "Grants Skill: Apocalypse":         "스킬 부여: 묵시록",
+
+    # Invoker (Monk2)
+    "Grants Skill: Meditate":           "스킬 부여: 명상",
+    "Grants Skill: Unbound Avatar":     "스킬 부여: 속박 해제된 화신",
+    "Grants Skill: Void Illusion":      "스킬 부여: 공허의 환영",
+    "Grants Skill: Encase in Jade":     "스킬 부여: 비취에 가두기",
+    "Grants Skill: Inevitable Agony":   "스킬 부여: 피할 수 없는 고통",
+
+    # Infernalist (Witch1)
+    "Grants Skill: Summon Infernal Hound": "스킬 부여: 지옥 사냥개 소환",
+
+    # Warbringer (Warrior2)
+    "Grants Skill: Manifest Weapon":    "스킬 부여: 무기 현현",
+    "Grants Skill: Temper Weapon":      "스킬 부여: 무기 단련",
+
+    # Deadeye (Ranger1)
+    "Grants Skill: Mirage Deadeye":     "스킬 부여: 신기루 데드아이",
+    "Grants Skill: Called Shots":       "스킬 부여: 집중 사격",
+    "Grants Skill: Moment of Vulnerability": "스킬 부여: 취약성의 순간",
+
+    # Pathfinder (Ranger3)
+    "Grants Skill: Acidic Concoction":      "스킬 부여: 산성 혼합물",
+    "Grants Skill: Bleeding Concoction":    "스킬 부여: 출혈 혼합물",
+    "Grants Skill: Explosive Concoction":   "스킬 부여: 폭발 혼합물",
+    "Grants Skill: Fulminating Concoction": "스킬 부여: 격발 혼합물",
+    "Grants Skill: Shattering Concoction":  "스킬 부여: 파쇄 혼합물",
+
+    # Amazon (Huntress1)
+    "Grants Skill: Into the Breach":    "스킬 부여: 돌파구로",
+    "Grants Skill: Supporting Fire":    "스킬 부여: 지원 사격",
+    "Grants Skill: Fire Spell on Hit":  "스킬 부여: 타격 시 화염 주문",
+
+    # Ritualist (Huntress3) named skills
+    "Grants Skill: Kelari's Deception":        "스킬 부여: 켈라리의 기만",
+    "Grants Skill: Kelari's Judgment":         "스킬 부여: 켈라리의 심판",
+    "Grants Skill: Kelari's Malediction":      "스킬 부여: 켈라리의 저주",
+    "Grants Skill: Kelari, the Tainted Sands": "스킬 부여: 오염된 모래의 켈라리",
+    "Grants Skill: Navira's Fracturing":       "스킬 부여: 나비라의 파쇄",
+    "Grants Skill: Navira's Oasis":            "스킬 부여: 나비라의 오아시스",
+    "Grants Skill: Navira's Well":             "스킬 부여: 나비라의 우물",
+    "Grants Skill: Navira, the Last Mirage":   "스킬 부여: 마지막 신기루 나비라",
+    "Grants Skill: Ruzhan's Fury":             "스킬 부여: 루잔의 분노",
+    "Grants Skill: Ruzhan's Reckoning":        "스킬 부여: 루잔의 심판",
+    "Grants Skill: Ruzhan's Trap":             "스킬 부여: 루잔의 함정",
+    "Grants Skill: Ruzhan, the Blazing Sword": "스킬 부여: 불타는 검 루잔",
+
+    # Tactician (Mercenary1)
+    "Grenades have 15% chance to activate a second time":
+        "수류탄 15% 확률로 2회 발동",
+
+    # Gemling Legionnaire (Mercenary3)
+    "100 Passive Skill Points become Weapon Set Skill Points":
+        "패시브 스킬 포인트 100개가 무기 세트 스킬 포인트로 전환",
+
+    # Witchhunter (Mercenary2)
+    "30% increased damage against Undead Enemies":      "언데드 적에게 주는 피해 30% 증가",
+    "50% increased Damage against Demons":              "악마에게 주는 피해 50% 증가",
+    "50% increased Critical Hit Chance against Humanoids": "인간형에게 치명타 확률 50% 증가",
+    "50% increased Duration of Ailments on Beasts":     "야수에게 부여한 상태이상 지속시간 50% 증가",
+    "50% increased Immobilisation buildup against Constructs": "구조물에 대한 속박 누적 50% 증가",
+    "50% reduced effect of Shock on you":               "내게 적용되는 감전 효과 50% 감소",
+
+    # Disciple of Varashta (Sorceress3)
+    "Adapt to the highest Elemental Damage Type of each Hit you take":
+        "받는 타격마다 가장 높은 원소 피해 유형에 적응",
+    "10% less Damage taken of each Elemental Damage Type per matching Adaptation":
+        "일치하는 적응당 각 원소 피해 유형 피해 10% 감소",
+    "10% less Elemental Damage taken":
+        "받는 원소 피해 10% 감소",
+
+    # Titan (Warrior1) / Warbringer
+    "Body Armour grants 100% increased Thorns damage":
+        "몸통 방어구: 가시 피해 100% 증가",
+    "Body Armour grants 15% increased maximum Life":
+        "몸통 방어구: 최대 생명력 15% 증가",
+    "Body Armour grants 20% increased Strength":
+        "몸통 방어구: 힘 20% 증가",
+    "Body Armour grants 25% of Physical Damage from Hits taken as Fire Damage":
+        "몸통 방어구: 받는 타격 물리 피해의 25%를 화염 피해로 전환",
+    "Body Armour grants 30% increased Spirit":
+        "몸통 방어구: 정신력 30% 증가",
+    "Body Armour grants 60% increased Glory generation":
+        "몸통 방어구: 영광 생성 60% 증가",
+    "Body Armour grants Hits against you have 100% reduced Critical Damage Bonus":
+        "몸통 방어구: 내게 가해지는 타격의 치명타 피해 보너스 100% 감소",
+    "Body Armour grants Unaffected by Damaging Ailments":
+        "몸통 방어구: 피해 주는 상태이상 면역",
+    "Body Armour grants regenerate 3% of maximum Life per second":
+        "몸통 방어구: 초당 최대 생명력의 3% 재생",
+
+    # Warbringer 특수
+    "Consuming Glory grants you 3% increased Attack damage per Glory consumed for 6 seconds, up to 60%":
+        "영광 소모 시 소모한 영광당 6초간 공격 피해 3% 증가 (최대 60%)",
+    "20% increased Culling Strike Threshold":
+        "처형 타격 임계값 20% 증가",
+    "20% increased Life Regeneration rate":
+        "생명력 재생 속도 20% 증가",
+
+    # Stormweaver
+    "Can Allocate Passive Skills from the Sorceress's starting point":
+        "소서리스 시작 지점에서 패시브 스킬 배분 가능",
+    "Can Allocate Passive Skills from the Warrior's starting point":
+        "전사 시작 지점에서 패시브 스킬 배분 가능",
+
+    # Pathfinder / Poison
+    "25% chance for Attacks to Maim on Hit against Poisoned Enemies":
+        "중독된 적 공격 타격 시 절름발이 확률 25%",
+    "25% increased Magnitude of Poison you inflict":
+        "부여하는 중독 강도 25% 증가",
+
+    # Martial Artist (Monk1)
+    "Gain a stack of Jade every second":
+        "초당 비취 중첩 1 획득",
+
+    # Acolyte of Chayula (Monk3)
+    "Break enemy Concentration on Hit equal to 100% of Damage Dealt":
+        "타격 시 가한 피해의 100%에 해당하는 적 집중력 파괴",
+    "Enemies have Maximum Concentration equal to 30% of their Maximum Life":
+        "적의 최대 집중력이 최대 생명력의 30%가 됨",
+    "Enemies in your Presence are Slowed by 20%":
+        "현존 범위 내 적 이동 속도 20% 둔화",
+    "Enemies regain 10% of Concentration every second if they haven't lost Concentration in the past 5 seconds":
+        "5초간 집중력을 잃지 않은 적이 초당 집중력 10% 회복",
+
+    # Totem
+    "+1 to maximum number of Summoned Totems":
+        "소환된 토템 최대 수 +1",
+    "Skills used by Totems have 30% more Skill Speed":
+        "토템이 사용하는 스킬 스킬 속도 30% 증가",
+    "Totems only use Skills when you fire an Attack Projectile":
+        "공격 투사체 발사 시에만 토템이 스킬 사용",
+
+    # Projectile
+    "Projectile Attacks have a 12% chance to fire two additional Projectiles while moving":
+        "이동 중 발사 투사체 공격이 12% 확률로 추가 투사체 2개 발사",
+    "Projectiles Pierce enemies with Fully Broken Armour":
+        "투사체가 방어도가 완전히 파괴된 적을 관통",
+
+    # Passive Points
+    "Grants 1 Passive Skill Point":     "패시브 스킬 포인트 1 부여",
+    "Grants 4 Passive Skill Points":    "패시브 스킬 포인트 4 부여",
+
+    # Misc
+    "You cannot be Electrocuted":       "감전사 면역",
+    "30% reduced effect of Curses on you": "내게 적용되는 저주 효과 30% 감소",
+    "Culling Strike against Beasts while your Companion is in your Presence":
+        "동반자가 현존 범위 내에 있을 때 야수에게 처형 타격",
+    "Tame Beast can capture Unique Beasts\nCan have up to one Unique Tamed Beast summoned":
+        "야수 길들이기로 유니크 야수 포획 가능\n유니크 길들인 야수를 최대 1마리 소환 가능",
+
+    # Vivid Wisp 여러 줄 버전
+    "Gain a Vivid Wisp for every 10 metres you move, up to a maximum of 3\nExpend all Vivid Wisps to trigger Vivid Stampede when you Attack":
+        "10m 이동할 때마다 생동의 도깨비불 획득 (최대 3개)\n공격 시 모든 생동의 도깨비불을 소모하여 생동의 질주 발동",
+    "Gain a Vivid Wisp when Vivid Stampede ends":
+        "생동의 질주 종료 시 생동의 도깨비불 획득",
 
     # Gloves transform
     "Gloves you equip have their Base Type transformed to Fists of Stone while equipped, and\ntheir Explicit Modifiers are transformed into more powerful related Modifiers":
@@ -400,8 +569,10 @@ STAT_REGEX_KO: list[tuple[str, str]] = [
 
 
 def clean_markup(text: str) -> str:
-    """[A|B] → B, [A] → A"""
-    return re.sub(r'\[(?:[^\[\]|]*\|)?([^\[\]]*)\]', r'\1', text)
+    """[A|B] → B, [A] → A, <underline>{X} → X"""
+    text = re.sub(r'\[(?:[^\[\]|]*\|)?([^\[\]]*)\]', r'\1', text)
+    text = re.sub(r'<[^>]+>\{([^}]+)\}', r'\1', text)
+    return text
 
 
 def translate_stat(stat: str) -> str:
