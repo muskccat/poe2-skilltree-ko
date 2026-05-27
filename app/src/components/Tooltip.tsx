@@ -85,12 +85,22 @@ export default function Tooltip({ node, x, y, diff, diffOn, override, className,
                   {cleanStat(s)}
                 </div>
               ))}
-              <div style={{ height: 6 }} />
-              {diff!.newStats!.map((s, i) => (
-                <div className="tooltip__new" key={i}>
-                  {cleanStat(s)}
-                </div>
-              ))}
+              {diff!.newStats!.some(s => cleanStat(s).includes("버그픽스")) && (
+                <>
+                  <div style={{ height: 6 }} />
+                  {diff!.newStats!.map((s, i) => {
+                    const cleaned = cleanStat(s);
+                    if (cleaned.includes("버그픽스")) {
+                      return (
+                        <div className="tooltip__new" key={i}>
+                          {cleaned}
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                </>
+              )}
             </>
           )}
         </div>
