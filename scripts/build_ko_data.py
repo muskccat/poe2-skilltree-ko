@@ -120,6 +120,7 @@ def clean_markup(text: str) -> str:
       [Attack]                     -> Attack
     """
     text = re.sub(r"\[(?:[^\[\]|]*\|)?([^\[\]]*)\]", r"\1", text)
+    text = text.replace("\\n", "\n")
     return text
 
 
@@ -175,11 +176,11 @@ def build_ko_stats(node: dict, ko_node: dict, stat_by_rid: dict, ko_templates: d
     한국어 스탯 문자열 목록 반환.
     영어 원문에서 수치를 매칭해 우선 대입하며, 매칭이 불가능한 경우 DB 백업 값으로 포맷합니다.
     """
-    stat_rids = ko_node.get("Stats", [])
-    if not stat_rids:
+    eng_stats = node.get("stats", [])
+    if not eng_stats:
         return None
 
-    eng_stats = node.get("stats", [])
+    stat_rids = ko_node.get("Stats", [])
     values_all = [
         ko_node.get("Stat1Value", 0),
         ko_node.get("Stat2Value", 0),
@@ -189,21 +190,23 @@ def build_ko_stats(node: dict, ko_node: dict, stat_by_rid: dict, ko_templates: d
     ]
 
     result = []
-    for i, rid in enumerate(stat_rids):
+    for i, eng_stat in enumerate(eng_stats):
         translated = None
-        if i < len(eng_stats):
-            clean_eng = clean_markup(eng_stats[i])
-            translated = translate_stat_via_csd(clean_eng, compiled_rules)
-            
+        clean_eng = clean_markup(eng_stat)
+        translated = translate_stat_via_csd(clean_eng, compiled_rules)
+        
         if translated is not None:
             result.append(translated)
         else:
             # 매칭 실패 시 DB 값을 correctly sliced 하여 백업 포맷팅 적용
-            stat_id = stat_by_rid.get(str(rid), "")
-            template = ko_templates.get(stat_id, "")
-            if not template:
-                return None  # 영어 fallback
-            result.append(apply_template(template, values_all[i:]))
+            if i < len(stat_rids):
+                rid = stat_rids[i]
+                stat_id = stat_by_rid.get(str(rid), "")
+                template = ko_templates.get(stat_id, "")
+                if template:
+                    result.append(apply_template(template, values_all[i:]))
+                    continue
+            result.append(clean_eng)
 
     return result if result else None
 
@@ -281,7 +284,7 @@ def main():
     ko_templates = {}
     for rule in csd_rules:
         for stat_name in rule["stats"]:
-            if stat_name and stat_name not in ko_templates:
+            if stat_name:
                 ko_templates[stat_name] = rule["ko"]
 
     ko_by_graphid: dict = {

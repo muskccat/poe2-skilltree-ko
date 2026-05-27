@@ -12,7 +12,8 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-DATA_PATH = REPO_ROOT / "app/public/data/data-0.5.json"
+DATA_04_PATH = REPO_ROOT / "app/public/data/data-0.4.json"
+DATA_05_PATH = REPO_ROOT / "app/public/data/data-0.5.json"
 
 # ── 노드 이름 번역 사전 ─────────────────────────────────────────────────────
 # 게임 내 공식 명칭이 확인된 것은 그대로, 설명형 이름은 맥락 번역
@@ -572,6 +573,7 @@ def clean_markup(text: str) -> str:
     """[A|B] → B, [A] → A, <underline>{X} → X"""
     text = re.sub(r'\[(?:[^\[\]|]*\|)?([^\[\]]*)\]', r'\1', text)
     text = re.sub(r'<[^>]+>\{([^}]+)\}', r'\1', text)
+    text = text.replace("\\n", "\n")
     return text
 
 
@@ -595,13 +597,13 @@ def translate_name(name: str) -> str:
     return NODE_NAME_KO.get(cleaned, NODE_NAME_KO.get(name, name))
 
 
-def main():
-    if not DATA_PATH.exists():
-        print(f"오류: {DATA_PATH} 없음")
-        sys.exit(1)
+def patch_file(file_path: Path):
+    if not file_path.exists():
+        print(f"오류: {file_path} 없음")
+        return
 
-    print(f"로드 중: {DATA_PATH}")
-    with open(DATA_PATH, encoding="utf-8") as f:
+    print(f"로드 중: {file_path}")
+    with open(file_path, encoding="utf-8") as f:
         data = json.load(f)
 
     nodes = data["nodes"]
@@ -641,14 +643,19 @@ def main():
             node["stats"] = new_stats
             stat_changed += 1
 
-    print(f"노드 이름 번역: {name_changed}개")
-    print(f"스탯 번역: {stat_changed}개")
+    print(f"  노드 이름 번역: {name_changed}개")
+    print(f"  스탯 번역: {stat_changed}개")
 
-    with open(DATA_PATH, "w", encoding="utf-8") as f:
+    with open(file_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
 
-    size_mb = DATA_PATH.stat().st_size / 1_048_576
-    print(f"저장 완료: {DATA_PATH} ({size_mb:.1f} MB)")
+    size_mb = file_path.stat().st_size / 1_048_576
+    print(f"  저장 완료: {file_path} ({size_mb:.1f} MB)\n")
+
+
+def main():
+    patch_file(DATA_04_PATH)
+    patch_file(DATA_05_PATH)
 
 
 if __name__ == "__main__":
