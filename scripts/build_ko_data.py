@@ -70,6 +70,49 @@ def parse_csd_korean(csd_path: Path) -> dict:
     return templates
 
 
+def parse_csd_both(csd_path: Path) -> list:
+    """
+    CSD 파일에서 영어 기본 템플릿과 한국어 템플릿 쌍을 추출합니다.
+    """
+    try:
+        with open(csd_path, encoding="utf-16", errors="replace") as f:
+            content = f.read()
+    except Exception as e:
+        print(f"  경고: CSD 파일 읽기 실패 {csd_path}: {e}")
+        return []
+
+    rules = []
+    blocks = re.split(r"\n\s*description\s*\n", content)
+
+    for block in blocks[1:]:
+        lines = block.split("\n")
+        if not lines:
+            continue
+        m = re.match(r"\s+\d+\s+(.+)", lines[0])
+        if not m:
+            continue
+        stat_names = m.group(1).strip().split()
+
+        default_section = re.split(r'\n\s*lang\s+"', block)[0]
+        ko_match = re.search(r'lang\s+"Korean"\s*\n(.*?)(?=\n\s*lang\s+"|$)', block, re.DOTALL)
+
+        if not ko_match:
+            continue
+
+        en_tmpls = re.findall(r'#\s+"([^"]*)"', default_section)
+        ko_tmpls = re.findall(r'#\s+"([^"]*)"', ko_match.group(1))
+
+        if en_tmpls and ko_tmpls:
+            for en_t, ko_t in zip(en_tmpls, ko_tmpls):
+                rules.append({
+                    "stats": stat_names,
+                    "en": en_t.strip(),
+                    "ko": ko_t.strip()
+                })
+
+    return rules
+
+
 def clean_markup(text: str) -> str:
     """
     POE 인라인 마크업 제거:
@@ -84,8 +127,9 @@ def apply_template(template: str, values: list) -> str:
     """CSD 템플릿 {0:+d}, {0:.1f}, {0} 등에 값 대입 후 마크업 정리."""
     result = template
     for i, v in enumerate(values):
-        result = result.replace(f"{{{i}:+d}}", f"+{v}" if v >= 0 else str(v))
-        result = result.replace(f"{{{i}}}", str(v))
+        v_str = str(v)
+        result = result.replace(f"{{{i}:+d}}", f"+{v_str}" if not v_str.startswith("-") else v_str)
+        result = result.replace(f"{{{i}}}", v_str)
     # 나머지 포맷 지정자({i:...}) 처리 — 예: {0:.1f}
     result = re.sub(
         r"\{(\d+):[^}]*\}",
@@ -95,16 +139,48 @@ def apply_template(template: str, values: list) -> str:
     return clean_markup(result)
 
 
-def build_ko_stats(ko_node: dict, stat_by_rid: dict, ko_templates: dict):
+def translate_stat_via_csd(s, compiled_rules):
+    for rule in compiled_rules:
+        m = rule["rx"].match(s)
+        if m:
+            groups = m.groups()
+            values = {}
+            for val, placeholder_idx in zip(groups, rule["val_indices"]):
+                try:
+                    num_val = float(val) if '.' in val else int(val)
+                except ValueError:
+                    num_val = val
+                values[placeholder_idx] = num_val
+                
+            result = rule["ko_tmpl"]
+            for placeholder_idx, val in values.items():
+                if isinstance(val, (int, float)):
+                    val_str = str(val)
+                    result = result.replace(f"{{{placeholder_idx}:+d}}", f"+{val_str}" if val >= 0 else val_str)
+                    result = result.replace(f"{{{placeholder_idx}}}", val_str)
+                else:
+                    result = result.replace(f"{{{placeholder_idx}}}", str(val))
+                
+            result = re.sub(
+                r"\{(\d+):[^}]*\}",
+                lambda match: str(values.get(int(match.group(1)), "")),
+                result,
+            )
+            return result
+    return None
+
+
+def build_ko_stats(node: dict, ko_node: dict, stat_by_rid: dict, ko_templates: dict, compiled_rules: list):
     """
     한국어 스탯 문자열 목록 반환.
-    하나라도 템플릿이 없으면 None 반환 (영어 fallback 신호).
+    영어 원문에서 수치를 매칭해 우선 대입하며, 매칭이 불가능한 경우 DB 백업 값으로 포맷합니다.
     """
     stat_rids = ko_node.get("Stats", [])
     if not stat_rids:
         return None
 
-    values = [
+    eng_stats = node.get("stats", [])
+    values_all = [
         ko_node.get("Stat1Value", 0),
         ko_node.get("Stat2Value", 0),
         ko_node.get("Stat3Value", 0),
@@ -114,11 +190,20 @@ def build_ko_stats(ko_node: dict, stat_by_rid: dict, ko_templates: dict):
 
     result = []
     for i, rid in enumerate(stat_rids):
-        stat_id = stat_by_rid.get(str(rid), "")
-        template = ko_templates.get(stat_id, "")
-        if not template:
-            return None  # 이 노드는 영어 fallback
-        result.append(apply_template(template, values))
+        translated = None
+        if i < len(eng_stats):
+            clean_eng = clean_markup(eng_stats[i])
+            translated = translate_stat_via_csd(clean_eng, compiled_rules)
+            
+        if translated is not None:
+            result.append(translated)
+        else:
+            # 매칭 실패 시 DB 값을 correctly sliced 하여 백업 포맷팅 적용
+            stat_id = stat_by_rid.get(str(rid), "")
+            template = ko_templates.get(stat_id, "")
+            if not template:
+                return None  # 영어 fallback
+            result.append(apply_template(template, values_all[i:]))
 
     return result if result else None
 
@@ -158,11 +243,46 @@ def main():
     print("스탯 ID 테이블 로드 중...")
     stats_list = load_json(STATS_JSON)
 
-    print("CSD 파일 파싱 중...")
-    ko_templates: dict = {}
+    print("CSD 파일에서 영어/한국어 규칙 추출 중...")
+    csd_rules = []
     for csd_path in [CSD_MAIN, CSD_PASSIVE]:
-        ko_templates.update(parse_csd_korean(csd_path))
-    print(f"  한국어 스탯 템플릿 {len(ko_templates)}개 로드됨")
+        csd_rules.extend(parse_csd_both(csd_path))
+    print(f"  총 {len(csd_rules)}개의 CSD 룰 로드됨")
+
+    compiled_rules = []
+    for rule in csd_rules:
+        en_clean = clean_markup(rule["en"])
+        ko_clean = clean_markup(rule["ko"])
+        
+        parts = re.split(r'\{(\d+)(?::[^}]*)?\}', en_clean)
+        regex_parts = []
+        val_indices = []
+        
+        for idx, part in enumerate(parts):
+            if idx % 2 == 0:
+                regex_parts.append(re.escape(part))
+            else:
+                regex_parts.append(r'([+-]?\d+(?:\.\d+)?)')
+                val_indices.append(int(part))
+                
+        pattern_str = "^" + "".join(regex_parts) + "$"
+        try:
+            rx = re.compile(pattern_str, re.IGNORECASE)
+            compiled_rules.append({
+                "rx": rx,
+                "val_indices": val_indices,
+                "ko_tmpl": ko_clean
+            })
+        except Exception as e:
+            pass
+    print(f"  컴파일 성공한 CSD 룰: {len(compiled_rules)}개")
+
+    # 기존 templates 매핑용 딕셔너리도 준비 (fallback용)
+    ko_templates = {}
+    for rule in csd_rules:
+        for stat_name in rule["stats"]:
+            if stat_name and stat_name not in ko_templates:
+                ko_templates[stat_name] = rule["ko"]
 
     ko_by_graphid: dict = {
         str(item["PassiveSkillGraphId"]): item
@@ -196,7 +316,7 @@ def main():
         if ko_name:
             node["name"] = ko_name
 
-        ko_stats = build_ko_stats(ko_node, stat_by_rid, ko_templates)
+        ko_stats = build_ko_stats(node, ko_node, stat_by_rid, ko_templates, compiled_rules)
         if ko_stats:
             node["stats"] = ko_stats
             cnt_full += 1
